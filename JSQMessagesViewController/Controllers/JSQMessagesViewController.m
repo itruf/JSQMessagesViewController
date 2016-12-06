@@ -897,8 +897,7 @@ JSQMessagesKeyboardControllerDelegate>
 
 #pragma mark - Keyboard controller delegate
 
-- (void)keyboardController:(JSQMessagesKeyboardController *)keyboardController keyboardDidChangeFrame:(CGRect)keyboardFrame
-{
+- (void)keyboardController:(JSQMessagesKeyboardController *)keyboardController keyboardDidChangeFrame:(CGRect)keyboardFrame {
     if (![self.inputToolbar.contentView.textView isFirstResponder] && self.toolbarBottomLayoutGuide.constant == 0.0) {
         return;
     }
@@ -906,7 +905,14 @@ JSQMessagesKeyboardControllerDelegate>
     CGFloat heightFromBottom = CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(keyboardFrame);
 
     heightFromBottom = MAX(0.0, heightFromBottom);
-
+    if (self.toolbarBottomLayoutGuide.constant == heightFromBottom) {
+        return;
+    }
+    if (self.showAttachMenu && heightFromBottom == 0) {
+        heightFromBottom = 188.f;
+    } else {
+        self.showAttachMenu = NO;
+    }
     [self jsq_setToolbarBottomLayoutGuideConstant:heightFromBottom];
 }
 
