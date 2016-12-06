@@ -172,6 +172,8 @@
  */
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
 
+@property(nonatomic) BOOL showAttachMenu;
+
 #pragma mark - Class methods
 
 /**
